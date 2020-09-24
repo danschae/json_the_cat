@@ -1,12 +1,15 @@
 const request = require('request');
 const args = process.argv.slice(2);
-let url = `https://api.thecatapi.com/v1/images/search?breed_id=${args}`;
+let url = ` https://api.thecatapi.com/v1/breeds/search?q=${args}`;
 
 request(url, (error, response, body) => {
   if (error) {
-    console.log("error", error);
+    return console.log("error", error);
+  } 
+  const data = JSON.parse(body);
+   if (data[0] === undefined) {
+    return console.log("breed not found")
   } else {
-    const data = JSON.parse(body);
-    console.log(data[0]);
+    return console.log(data[0]);
   }
 });
